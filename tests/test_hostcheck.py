@@ -70,7 +70,7 @@ class TestFalhaReal(unittest.TestCase):
         proc = subprocess.run(
             [sys.executable, str(ROOT / "hostcheck.py"),
              "nao-existe-neste-dominio.invalid", "--timeout", "2", "--no-color"],
-            capture_output=True, text=True, cwd=ROOT, timeout=60,
+            capture_output=True, text=True, encoding="utf-8", cwd=ROOT, timeout=60,
         )
         self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
         self.assertIn("FAIL", proc.stdout)
@@ -79,7 +79,7 @@ class TestFalhaReal(unittest.TestCase):
         proc = subprocess.run(
             [sys.executable, str(ROOT / "hostcheck.py"),
              "nao-existe-neste-dominio.invalid", "--timeout", "2", "--json"],
-            capture_output=True, text=True, cwd=ROOT, timeout=60,
+            capture_output=True, text=True, encoding="utf-8", cwd=ROOT, timeout=60,
         )
         data = json.loads(proc.stdout)
         self.assertEqual(data["results"][0]["status"], "FAIL")
